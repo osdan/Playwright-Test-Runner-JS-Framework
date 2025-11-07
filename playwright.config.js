@@ -1,7 +1,17 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests',
+  projects: [
+    {
+      name: 'Test Plan',
+      testDir: './tests/TestPlan',
+    },
+    {
+      name: 'Utils Tests',
+      testDir: './tests/utils',
+    },
+  ],
+  
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -14,7 +24,7 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    headless: true,  // 👈 false muestra la ejecucion en tiempo real en el navegador
+    headless: true,  // 👈 false It shows the real-time execution in the browser.
     trace: 'on-first-retry',
   },
 

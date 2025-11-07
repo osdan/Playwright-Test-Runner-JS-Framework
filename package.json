@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
     "@types/node": "^24.10.0"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2"
   }
 }

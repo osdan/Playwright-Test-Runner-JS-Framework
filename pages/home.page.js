@@ -9,6 +9,8 @@ class HomePage {
     this.cartButton = page.locator('(//a[@href="/view_cart"])[2]');
     this.signupLoginButton = page.locator('a[href="/login"]');
     this.contactUsButton = page.locator('a[href="/contact_us"]');
+    this.deleteAccountButton = page.locator('a[href="/delete_account"]');
+    this.loggedInAsText = page.locator('//b');
     
   }
 
@@ -16,24 +18,28 @@ class HomePage {
     await this.page.goto(urls.home, { waitUntil: 'domcontentloaded' });
   }
 
-  async goToHomeTab(){
+  async HomeTabButton(){
     await this.homeButton.click();
   }
 
-  async goToLogin() {
-    await this.signupLoginButton.click();
-  }
-
-  async goToProducts() {
+  async ProductsButton() {
     await this.productsButton.click();
   }
 
-  async goToContactUs() {
+  async ContactUsButton() {
     await this.contactUsButton.click();
   }
 
-    async goToContactUs() {
-    await this.contactUsButton.click();
+  async signupLoginButton() {
+    await this.signupLoginButton;
+  }
+
+  async deleteAccountButton() {
+    return this.deleteAccountButton;
+  }
+
+  async loggedInAsText() {
+    return this.loggedInAsText;
   }
 }
 
