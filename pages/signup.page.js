@@ -31,9 +31,11 @@ class SignupPage {
         return this.enterAccountInfoText;
     }
 
-    async fillDetailsTitleNameEmailPasswordDateOfBirth(titleIndex, name, password, day, month, year) {
+    async fillDetailsTitleNameEmailPasswordDateOfBirth(details) {
+        const { titleIndex, user, password, day, month, year } = details;
+
         await this.titleRadioButtons.nth(titleIndex).check();
-        await this.nameInput.fill(name);
+        await this.nameInput.fill(user);
         await this.passwordInput.fill(password);
         await this.daySelect.selectOption(day);
         await this.monthSelect.selectOption(month);
@@ -47,7 +49,9 @@ class SignupPage {
         await this.receiveSpecialOffersCheckbox.check();
     }
 
-    async fillAddressInformation(firstName, lastName, company, address1, address2, country, state, city, zipcode, mobileNumber) {
+    async fillAddressInformation(details) {
+        const { firstName, lastName, company, address1, address2, country, state, city, zipcode, mobileNumber } = details;
+
         await this.firstNameInput.fill(firstName);
         await this.lastNameInput.fill(lastName);
         await this.companyInput.fill(company);

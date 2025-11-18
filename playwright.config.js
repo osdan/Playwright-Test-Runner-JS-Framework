@@ -10,6 +10,10 @@ export default defineConfig({
       name: 'Utils Tests',
       testDir: './tests/utils',
     },
+    {
+      name: 'Playwright Practices',
+      testDir: './tests/TestPractices',
+    },
   ],
   
   /* Run tests in files in parallel */
@@ -24,7 +28,7 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    headless: true,  // 👈 false It shows the real-time execution in the browser.
+    headless: false,  // 👈 false It shows the real-time execution in the browser.
     trace: 'on-first-retry',
   },
 

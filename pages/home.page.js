@@ -11,6 +11,7 @@ class HomePage {
     this.contactUsButton = page.locator('a[href="/contact_us"]');
     this.deleteAccountButton = page.locator('a[href="/delete_account"]');
     this.loggedInAsText = page.locator('//b');
+    this.logoutButton = page.locator('a[href="/logout"]');
     
   }
 
@@ -40,6 +41,10 @@ class HomePage {
 
   async loggedInAsText() {
     return this.loggedInAsText;
+  }
+
+  async logoutButton() {
+    await this.logoutButton;
   }
 }
 

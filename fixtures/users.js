@@ -1,0 +1,42 @@
+export const users = [
+  {
+    titleIndex: 0,
+    email:'',
+    user: '',
+    password: '',
+    day: '10',
+    month: 'May',
+    year: '2000',
+    name: '',
+    firstName:'chinchin fn',
+    lastName:'chinchin ln',
+    company:'chinchin company',
+    address1:'chinchin street 1',
+    address2:'chinchin street 2',
+    country:'India',
+    state:'chinchin state',
+    city:'chinchin city',
+    zipcode:'chinchin zipcode',
+    mobileNumber:'chinchin mobilenumber'
+  },
+  {
+    titleIndex: 1,
+    email:'',
+    user: '',
+    password: '',
+    day: '10',
+    month: 'May',
+    year: '2000',
+    name: '',
+    firstName:'chinchin fn',
+    lastName:'chinchin ln',
+    company:'chinchin company',
+    address1:'chinchin street 1',
+    address2:'chinchin street 2',
+    country:'India',
+    state:'chinchin state',
+    city:'chinchin city',
+    zipcode:'chinchin zipcode',
+    mobileNumber:'chinchin mobilenumber'
+  }
+];
