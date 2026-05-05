@@ -1,25 +1,29 @@
-# Playwright-Test-Runner-JS-Framework
+# 🚀 Playwright Test Automation Framework (JS)
+
+Framework de automatización de pruebas End-to-End construido con **Playwright + JavaScript**, basado en arquitectura **Page Object Model (POM)** y diseñado para ejecución en pipelines CI/CD.
+
+---
+
+## 🧱 Architecture Overview
+
+Este framework está diseñado para mantener escalabilidad, reutilización y separación de responsabilidades:
+
+- 🧪 Tests desacoplados de la lógica de UI
+- 📄 Page Object Model (POM)
+- 🧰 Helpers reutilizables
+- 📊 Data-driven testing con fixtures
+- ⚙️ Configuración centralizada de Playwright
+
+---
+
 ## 📂 Project Structure
 
 ```bash
 📦 project-root/
-├── 📁 tests/                 # Test files
-│   ├── 📄 home.spec.js
-│   ├── 📄 login.spec.js
-│   └── 📄 ...
-│
-├── 📁 pages/                 # Page Objects (POM)
-│   ├── 📄 home.page.js
-│   ├── 📄 login.page.js
-│   └── 📄 products.page.js
-│
-├── 📁 utils/                 # Utility functions or helpers
-│   ├── 📄 api.helper.js
-│   └── 📄 data.helper.js
-│
-├── 📁 fixtures/              # Test data, configs, mock files
-│   ├── 📄 users.json
-│   └── 📄 config.js
-│
-├── ⚙️ playwright.config.js    # Global Playwright configuration
-└── 📦 package.json
+├── 📁 tests/                 # E2E test cases
+├── 📁 pages/                 # Page Object Model
+├── 📁 utils/                 # Helpers & utilities
+├── 📁 fixtures/              # Test data & configs
+├── 📁 reports/               # Execution reports
+├── ⚙️ playwright.config.js
+├── 📦 package.json
