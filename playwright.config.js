@@ -28,46 +28,31 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    headless: false,  // 👈 false It shows the real-time execution in the browser.
-    trace: 'on-first-retry',
+    headless: true,
+    viewport: { width: 1920, height: 1080 },
+    screenshot: "on",
+    video: 'retain-on-failure',
+    launchOptions: {
+      args: ['--start-maximized']
+    },
   },
-
-  /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-
+      use: {
+        channel: 'chrome',   // o 'chromium'
+      }
+    }
+    /*,
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { browserName: 'firefox' }
     },
-
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+      use: { browserName: 'webkit' }
+    }
+      */
   ],
 
   /* Run your local dev server before starting the tests */

@@ -4,4 +4,5 @@ export const urls = {
   login: 'https://automationexercise.com/login',
   products: 'https://automationexercise.com/products',
   contactUs: 'https://automationexercise.com/contact_us',
+  testCases: 'https://automationexercise.com/test_cases',
 };

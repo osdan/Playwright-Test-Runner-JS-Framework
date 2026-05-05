@@ -1,27 +1,66 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  schedule:
+    - cron: '0 3 * * *' # Todos los días a las 3 AM UTC
+
 jobs:
-  test:
-    timeout-minutes: 60
+  smoke-tests:
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v4
+
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+
+    - name: Run Smoke Tests
+      run: npx playwright test --grep "@smoke"
+
+    - name: Upload Smoke Report
+      uses: actions/upload-artifact@v4
+      if: always()
       with:
-        name: playwright-report
+        name: smoke-report
+        path: playwright-report/
+        retention-days: 30
+
+  nightly-regression:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run Full Regression
+      run: npx playwright test
+
+    - name: Upload Regression Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: regression-report
         path: playwright-report/
         retention-days: 30

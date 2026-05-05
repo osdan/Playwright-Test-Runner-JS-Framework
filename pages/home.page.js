@@ -12,39 +12,28 @@ class HomePage {
     this.deleteAccountButton = page.locator('a[href="/delete_account"]');
     this.loggedInAsText = page.locator('//b');
     this.logoutButton = page.locator('a[href="/logout"]');
-    
+    this.testCasesButton = page.locator("(//a[@href='/test_cases'])[1]");
   }
 
   async goto() {
     await this.page.goto(urls.home, { waitUntil: 'domcontentloaded' });
   }
 
-  async HomeTabButton(){
-    await this.homeButton.click();
+  // 🔹 Acciones (acciones sí son async)
+  async clickSignupLogin() {
+    await this.signupLoginButton.click();
   }
 
-  async ProductsButton() {
-    await this.productsButton.click();
+  async clickDeleteAccount() {
+    await this.deleteAccountButton.click();
   }
 
-  async ContactUsButton() {
-    await this.contactUsButton.click();
+  async clickLogout() {
+    await this.logoutButton.click();
   }
 
-  async signupLoginButton() {
-    await this.signupLoginButton;
-  }
-
-  async deleteAccountButton() {
-    return this.deleteAccountButton;
-  }
-
-  async loggedInAsText() {
-    return this.loggedInAsText;
-  }
-
-  async logoutButton() {
-    await this.logoutButton;
+  async clickTestCases() {
+    await this.testCasesButton.click();
   }
 }
 

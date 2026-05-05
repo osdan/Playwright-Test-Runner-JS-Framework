@@ -10,7 +10,7 @@ class AccountCreatedPage {
     }
 
     async ContinueButton() {
-        await this.continueButton;
+        await this.continueButton.click();
     }
 }
 
