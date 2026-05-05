@@ -11,8 +11,9 @@ on:
       - main
       - master
 
+  workflow_dispatch:
   schedule:
-    - cron: "25 1 * * *"
+    - cron: "40 6 * * *"
 
 jobs:
   smoke-tests:
