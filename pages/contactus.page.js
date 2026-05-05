@@ -11,6 +11,7 @@ class contactUsPage {
         this.uploadFileInput = page.locator('input[type="file"]');        
         this.submitButton = page.locator('input[name="submit"]');
         this.successMessage = page.locator('.status.alert.alert-success');
+        this.homeButton = page.locator('(//a[@href="/"])[2]');
     }
 }
 
