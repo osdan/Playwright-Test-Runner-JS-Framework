@@ -31,6 +31,7 @@ test('Register User @smoke', async ({ page }) => {
 
   await test.step('3. Verify that home page is visible successfully', async () => {
     await expect(page).toHaveURL(urls.home);
+    await expect(home.signupLoginButton).toBeVisible();
   });
 
   await test.step("4. Click on 'Signup / Login' button", async () => {

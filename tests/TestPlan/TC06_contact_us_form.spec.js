@@ -1,47 +1,84 @@
 import { test, expect } from '@playwright/test';
-
 import HomePage from '../../pages/home.page.js';
-import LoginPage from '../../pages/login.page.js';
-import SignupPage from '../../pages/signup.page.js';
-import AccountCreatedPage from '../../pages/accountcreated.page.js';
-import DeleteAccountPage from '../../pages/deleteaccount.page.js';
+import contactUsPage from '../../pages/contactus.page.js';
 
 import { urls } from '../../utils/urls.js';
 import { CharGen } from '../../utils/characterGenerator.js';
-import { users } from '../../fixtures/users.js';
+import path from 'path';
 
 test('Contact Us Form @regression', async ({ page }) => {
+
   const home = new HomePage(page);
-  const login = new LoginPage(page);
-  const signup = new SignupPage(page);
-  const accountcreated = new AccountCreatedPage(page);
-  const deleteaccount = new DeleteAccountPage(page);
-  const user = "chinchin." + CharGen.getRandomString(3);
-  const email = user + '@chin.com';
-  const password = CharGen.getRandomString(10);
-  const details = users[0];
-  details.user = user;
-  details.password = password;
-  details.email = email;
+  const contactUs = new contactUsPage(page);
+  const name = "user." + CharGen.getRandomString(4);
+  const email = name + "@test.com";
+  const filePath = path.join(process.cwd(), 'tests/fixtures/file.pdf');
 
+  // 🔹 1. Launch browser
+  await test.step('1. Launch browser', async () => {
+    // handled by Playwright
+  });
 
-  await home.goto();
-  await home.contactUsButton.click();
-  await expect(page).toHaveURL(urls.contactUs);
+  // 🔹 2. Navigate to URL
+  await test.step("2. Navigate to url 'http://automationexercise.com'", async () => {
+    await home.goto();
+  });
 
-  await home.signupLoginButton.click();
-  await expect(login.newUserSignupText).toBeVisible();
-  await login.sendKeysSignupNameEmail(user, email);
-  await login.signupButton.click();
-  await expect(signup.enterAccountInfoText).toBeVisible();
-  await signup.fillDetailsTitleNameEmailPasswordDateOfBirth(details);
+  // 🔹 3. Verify home page
+  await test.step('3. Verify that home page is visible successfully', async () => {
+    await expect(home.signupLoginButton).toBeVisible();
+  });
 
-  await signup.checkNewsletterSubscription();
-  await signup.checkReceiveSpecialOffersSubscription();
-  await signup.fillAddressInformation(details);
+  // 🔹 4. Click Contact Us
+  await test.step("4. Click on 'Contact Us' button", async () => {
+    await home.contactUsButton.click();
+  });
 
-  await signup.createAccountButton.click();
-  await expect(accountcreated.accountCreatedText).toBeVisible();
-  await accountcreated.continueButton.click();
-  await expect(home.loggedInAsText).toContainText(user);
+  // 🔹 5. Verify GET IN TOUCH
+  await test.step("5. Verify 'GET IN TOUCH' is visible", async () => {
+    await expect(contactUs.contactUsHeader).toBeVisible();
+  });
+
+  // 🔹 6. Enter form data
+  await test.step('6. Enter name, email, subject and message', async () => {
+    await contactUs.nameInput.fill(name);
+    await contactUs.emailInput.fill(email);
+    await contactUs.subjectInput.fill('Automation Test');
+    await contactUs.messageTextArea.fill('This is a test message from Playwright');
+  });
+
+  // 🔹 7. Upload file
+  await test.step('7. Upload file', async () => {
+    await contactUs.uploadFileInput.setInputFiles('tests/fixtures/file.pdf');
+  });
+
+  // 🔹 8. Click Submit
+  await test.step("8. Submit form and accept alert", async () => {
+    page.once('dialog', async dialog => {
+    await dialog.accept();
+  });
+
+  await contactUs.submitButton.click();
+  });
+
+  // 🔹 9. Handle alert (OK)
+  await test.step('9. Click OK button', async () => {
+    // handled in previous step
+  });
+
+  // 🔹 10. Verify success message
+  await test.step("10. Verify success message", async () => {
+    await expect(contactUs.successMessage).toBeVisible();
+
+    await expect(contactUs.successMessage).toContainText(
+      'Success! Your details have been submitted successfully'
+    ); 
+  });
+
+  // 🔹 11. Click Home and verify redirect
+  await test.step("11. Click 'Home' button and verify navigation", async () => {
+    await contactUs.homeButton.click();
+    await expect(page).toHaveURL(urls.home);
+  });
+
 });
