@@ -1,32 +1,56 @@
----
-name: Playwright Tests
+name: QA Automation Pipeline (Smoke + Regression)
+
 on:
   push:
     branches:
       - main
       - master
+
   pull_request:
     branches:
       - main
       - master
+
   schedule:
-    - cron: 0 3 * * *
+    - cron: "0 3 * * *"
 
 jobs:
   smoke-tests:
     if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
+      # Cache npm dependencies (IMPORTANTE)
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Cache Playwright browsers
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright
+
       - name: Install dependencies
         run: npm ci
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
       - name: Run Smoke Tests
-        run: npx playwright test --grep "@smoke"
+        run: npx playwright test --grep "@smoke" --workers=2 --retries=1
+
       - name: Upload Smoke Report
         uses: actions/upload-artifact@v4
         if: always()
@@ -36,19 +60,41 @@ jobs:
           retention-days: 30
 
   nightly-regression:
-    if: github.event_name != 'schedule'
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
+      # Cache npm dependencies
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Cache Playwright browsers
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright
+
       - name: Install dependencies
         run: npm ci
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
       - name: Run Full Regression
-        run: npx playwright test
+        run: npx playwright test --workers=4 --retries=2
+
       - name: Upload Regression Report
         uses: actions/upload-artifact@v4
         if: always()
