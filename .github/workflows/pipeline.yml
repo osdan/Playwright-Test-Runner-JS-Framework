@@ -12,8 +12,9 @@ on:
       - master
 
   workflow_dispatch:
+
   schedule:
-    - cron: "40 6 * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   smoke-tests:
@@ -27,16 +28,12 @@ jobs:
         with:
           node-version: lts/*
 
-      # Cache npm dependencies (IMPORTANTE)
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
-      # Cache Playwright browsers
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
@@ -45,9 +42,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
 
       - name: Run Smoke Tests
         run: npx playwright test --grep "@smoke" --workers=2 --retries=1
@@ -71,16 +65,12 @@ jobs:
         with:
           node-version: lts/*
 
-      # Cache npm dependencies
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
-      # Cache Playwright browsers
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
@@ -89,9 +79,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
 
       - name: Run Full Regression
         run: npx playwright test --workers=4 --retries=2
