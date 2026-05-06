@@ -78,7 +78,7 @@ test('Contact Us Form @regression', async ({ page }) => {
   // 🔹 11. Click Home and verify redirect
   await test.step("11. Click 'Home' button and verify navigation", async () => {
     await contactUs.homeButton.click();
-    await expect(page).toHaveURL(urls.home);
+    await expect(page).toHaveURL(urls.baseURL + urls.paths.home);
   });
 
 });
