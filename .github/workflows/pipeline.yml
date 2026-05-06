@@ -2,91 +2,25 @@ name: QA Automation Pipeline (Smoke + Regression)
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [ main, master ]
 
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [ main, master ]
 
   workflow_dispatch:
 
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 */12 * * *"
 
 jobs:
   smoke-tests:
     if: github.event_name != 'schedule'
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Smoke Tests
-        run: npx playwright test --grep "@smoke" --workers=2 --retries=1
-
-      - name: Upload Smoke Report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: smoke-report
-          path: playwright-report/
-          retention-days: 30
+    uses: ./.github/workflows/setup.yml
+    with:
+      test-type: smoke
 
   nightly-regression:
     if: github.event_name == 'schedule'
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Full Regression
-        run: npx playwright test --workers=4 --retries=2
-
-      - name: Upload Regression Report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: regression-report
-          path: playwright-report/
-          retention-days: 30
+    uses: ./.github/workflows/setup.yml
+    with:
+      test-type: regression

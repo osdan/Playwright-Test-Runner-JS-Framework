@@ -1,10 +1,14 @@
-name: Setup Playwright Environment
+name: Setup & Run Playwright Tests
 
 on:
   workflow_call:
+    inputs:
+      test-type:
+        required: true
+        type: string
 
 jobs:
-  setup:
+  run-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,3 +35,19 @@ jobs:
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
+      - name: Run Tests
+        run: |
+          if [ "${{ inputs.test-type }}" = "smoke" ]; then
+            npx playwright test --grep "@smoke" --workers=2 --retries=1
+          else
+            npx playwright test --workers=4 --retries=2
+          fi
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ inputs.test-type }}
+          path: playwright-report/
+          retention-days: 30
