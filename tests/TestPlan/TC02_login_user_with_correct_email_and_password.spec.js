@@ -56,7 +56,7 @@ test('Login User with correct email and password @smoke', async ({ page }) => {
 
   // 🔹 3. Verify home page is visible
   await test.step('3. Verify that home page is visible successfully', async () => {
-    await expect(page).toHaveURL(urls.home);
+    await expect(page).toHaveURL(urls.baseURL + urls.paths.home);
     await expect(home.signupLoginButton).toBeVisible();
   });
 

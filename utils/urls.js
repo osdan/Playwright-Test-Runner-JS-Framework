@@ -1,8 +1,21 @@
+import { appendFile } from "fs";
+
 export const urls = {
   baseURL: 'https://automationexercise.com',
-  home: 'https://automationexercise.com/',
-  login: 'https://automationexercise.com/login',
-  products: 'https://automationexercise.com/products',
-  contactUs: 'https://automationexercise.com/contact_us',
-  testCases: 'https://automationexercise.com/test_cases',
+
+  paths: {
+    api: '/api',
+    home: '/',
+    login: '/login',
+    products: '/products',
+    contactUs: '/contact_us',
+    testCases: '/test_cases',
+  },
+
+  endpoints: {
+    productsList: 'productsList',
+    brandsList: 'brandsList',
+    searchProduct: 'searchProduct',
+  },
+
 };

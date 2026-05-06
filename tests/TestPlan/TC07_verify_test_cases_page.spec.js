@@ -22,7 +22,7 @@ test('Verify Test Cases Page @regression', async ({ page }) => {
 
     // 🔹 3. Verify home page
     await test.step('3. Verify home page is visible successfully', async () => {
-        await expect(page).toHaveURL(urls.home);
+        await expect(page).toHaveURL(urls.baseURL + urls.paths.home);
         await expect(home.signupLoginButton).toBeVisible();
     });
 
@@ -33,7 +33,7 @@ test('Verify Test Cases Page @regression', async ({ page }) => {
 
     // 🔹 5. Verify navigation to Test Cases page
     await test.step('5. Verify user is navigated to Test Cases page successfully', async () => {
-        await expect(page).toHaveURL(urls.testCases);
+        await expect(page).toHaveURL(urls.baseURL + urls.paths.testCases);
         await expect(testCases.TestCasesHeader()).toBeVisible();
     });
 

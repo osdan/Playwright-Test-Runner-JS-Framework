@@ -30,7 +30,7 @@ test('Register User @smoke', async ({ page }) => {
   });
 
   await test.step('3. Verify that home page is visible successfully', async () => {
-    await expect(page).toHaveURL(urls.home);
+    await expect(page).toHaveURL(urls.baseURL + urls.paths.home);
     await expect(home.signupLoginButton).toBeVisible();
   });
 

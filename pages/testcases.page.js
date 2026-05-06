@@ -7,7 +7,7 @@ class TestCasesPage {
     }
 
     async goto() {
-        await this.page.goto(urls.testCases, { waitUntil: 'domcontentloaded' });
+        await this.page.goto(urls.baseURL + urls.paths.testCases, { waitUntil: 'domcontentloaded' });
     }
     TestCasesHeader(){
         return this.testCasesHeader;

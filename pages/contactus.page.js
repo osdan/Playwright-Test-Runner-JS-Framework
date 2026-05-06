@@ -1,5 +1,3 @@
-import { urls } from '../utils/urls.js';
-
 class contactUsPage {
     constructor(page) {
         this.page = page;   
