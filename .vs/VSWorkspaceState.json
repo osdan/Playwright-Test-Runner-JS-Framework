@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\tests\\fixtures",
+    "\\tests\\TestPlan"
+  ],
+  "SelectedNode": "\\.github\\workflows\\pipeline.yml",
+  "PreviewInSolutionExplorer": false
+}

@@ -19,7 +19,7 @@ test('Register User @smoke', async ({ page }) => {
   const user = "chinchin." + CharGen.getRandomString(3);
   const email = user + '@chin.com';
   const password = CharGen.getRandomString(10);
- const details = { ...users[0], user, email, password };
+  const details = { ...users[0], user, email, password };
 
   await test.step('1. Launch browser', async () => {
     // Playwright ya lanza el browser automáticamente

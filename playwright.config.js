@@ -13,7 +13,23 @@ export default defineConfig({
     {
       name: 'Playwright Practices',
       testDir: './tests/TestPractices',
-    },
+        },
+        {
+            name: 'chromium',
+            use: {
+                channel: 'chrome',   // o 'chromium'
+            }
+        }
+        /*,
+        {
+          name: 'firefox',
+          use: { browserName: 'firefox' }
+        },
+        {
+          name: 'webkit',
+          use: { browserName: 'webkit' }
+        }
+          */
   ],
   
   /* Run tests in files in parallel */
@@ -36,24 +52,7 @@ export default defineConfig({
       args: ['--start-maximized']
     },
   },
-  projects: [
-    {
-      name: 'chromium',
-      use: {
-        channel: 'chrome',   // o 'chromium'
-      }
-    }
-    /*,
-    {
-      name: 'firefox',
-      use: { browserName: 'firefox' }
-    },
-    {
-      name: 'webkit',
-      use: { browserName: 'webkit' }
-    }
-      */
-  ],
+
 
   /* Run your local dev server before starting the tests */
   // webServer: {
