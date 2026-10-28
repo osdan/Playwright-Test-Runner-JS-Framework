@@ -25,8 +25,6 @@ test('Register User @smoke', async ({ page }) => {
     // Playwright ya lanza el browser automáticamente
   });
 
-
-
   await test.step("2. Navigate to url 'http://automationexercise.com'", async () => {
     await home.goto();
   });

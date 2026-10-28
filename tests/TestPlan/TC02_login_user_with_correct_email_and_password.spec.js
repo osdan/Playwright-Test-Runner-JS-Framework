@@ -41,6 +41,8 @@ test('Login User with correct email and password @smoke', async ({ page }) => {
     await expect(home.loggedInAsText).toContainText(user);
     if (await home.logoutButton.isVisible()) {
       await home.clickLogout();
+      // Wait for logout to complete - verify login page is visible
+      await expect(login.loginAccountText).toBeVisible();
     }
   });
 

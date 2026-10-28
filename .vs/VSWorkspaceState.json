@@ -3,9 +3,10 @@
     "",
     "\\.github",
     "\\.github\\workflows",
+    "\\tests",
     "\\tests\\fixtures",
     "\\tests\\TestPlan"
   ],
-  "SelectedNode": "\\.github\\workflows\\pipeline.yml",
+  "SelectedNode": "\\fixtures",
   "PreviewInSolutionExplorer": false
 }

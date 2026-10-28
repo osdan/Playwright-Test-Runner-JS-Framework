@@ -43,6 +43,8 @@ test('Logout User @smoke', async ({ page }) => {
   await test.step('Ensure user is logged out', async () => {
     if (await home.logoutButton.isVisible()) {
       await home.clickLogout();
+      // Wait for logout to complete - verify login page is visible
+      await expect(login.loginAccountText).toBeVisible();
     }
   });
 
